@@ -1,0 +1,131 @@
+
+
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset='utf-8' />
+	<title>Fullscreen Webcam Viewer</title>
+	
+	<meta property="og:title" content="Fullscreen Webcam Viewer"/>
+	<meta property="og:type" content="cause"/>
+	<meta property="og:site_name" content="Fullscreen Webcam Viewer"/>
+	<meta property="og:description" content="Check webcam can display in fullscreen."/>
+	<meta name="description" content="Check webcam can display in fullscreen.">
+
+  <link rel="icon" type="image/png" href="icon.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<style>
+		body {
+			margin: 0 0 0 0;
+			color:#333;
+			background-color:#222;
+			background-image:url('allow.png');
+			background-repeat:no-repeat;
+			background-attachment:fixed;
+			background-position:right top; 
+			background-repeat: no-repeat; 
+      overflow:hidden;
+		}
+		video { 
+      width: 100vw;
+      height: 100vh;
+
+      /*
+			position: fixed;
+			right: 0;
+			bottom: 0;
+      */
+      /*
+			min-width: 100%;
+			min-height: 100%;
+			width: auto;
+			height: auto;
+      */
+			z-index: -100;
+			/*background-size: cover;*/
+			transition: 1s opacity;
+      /*
+			-moz-transform: scale(-1, 1); 
+			-webkit-transform: scale(-1, 1); -o-transform: scale(-1, 1); 
+			transform: scale(-1, 1); filter: FlipH;
+      */
+		}
+		canvas { }
+	</style>
+	<script type='text/javascript'>//<![CDATA[ 
+	window.onload=function(){
+	var video = null;
+	
+	var errorCallback = function(e) {
+		console.log("Error setting up video:", e);
+	};
+	
+  const mediaStreamConstraints = {
+    video: {
+      width: {min: 1280},
+      height: {min: 720}
+    },
+    audio: true
+  };
+
+  let main = async function () {
+    try {
+      video = document.querySelector('video');
+      let constraints = {video: {width: 9999}};
+      video.srcObject = await navigator.mediaDevices.getUserMedia(constraints);
+      let track = video.srcObject.getTracks()[0];
+      if (track.getSettings) {
+        let {width, height} = track.getSettings();
+        console.log(`${width}x${height}`);
+        video.style.width = width+'px';
+        video.style.height = height+'px'
+
+        video.addEventListener('click', function () {
+          if (this.requestFullscreen) {
+            this.requestFullscreen();
+          } 
+          else if (this.mozRequestFullScreen) { 
+            this.mozRequestFullScreen();
+          } 
+          else if (this.webkitRequestFullscreen) { 
+            this.webkitRequestFullscreen();
+          } 
+          else if (this.msRequestFullscreen) { 
+            this.msRequestFullscreen();
+          }
+        })
+      }
+      await new Promise(resolve => video.onloadedmetadata = resolve);
+      console.log(`${video.videoWidth}x${video.videoHeight}`);
+    } catch(e) {
+      console.log(e);
+    }
+  }
+  main()
+
+  /*
+	try{
+
+
+	    navigator.webkitGetUserMedia(mediaStreamConstraints, function(localMediaStream) {
+        
+		    video = document.querySelector('video');
+		    video.srcObject=localMediaStream;
+		    video.muted = true; //this prevents a webcam from echoing in the speakers
+		    video.controls = false; //show fullscreen control elsewhere
+	    }, errorCallback);
+	}catch(e){
+	    console.log(e);
+	    console.log(navigator.webkitGetUserMedia);
+	}
+  */
+	}//]]>  
+	
+	</script>
+</head>
+<body>
+
+<video autoplay></video>	
+
+</body>
+</html>
