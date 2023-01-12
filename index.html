@@ -38,6 +38,7 @@
       width: auto;
       max-height: calc(100vh - 3rem);
       height: auto;
+      cursor: pointer;
 
       /*
 			position: fixed;
@@ -65,11 +66,16 @@
     }
 
     select {
-      display: block !important;
+      /* display: block !important; */
 
-      width: 100vw;
+      width: calc(100vw - 10rem);
       height: 3rem;
       font-size: 2rem;
+    }
+
+    button {
+      font-size: 2rem;
+      width: 9rem;
     }
     
 		canvas { }
@@ -170,7 +176,11 @@
 </head>
 <body class="allow">
 
-<select id="source" name="source"></select>
+<div class="controller">
+  <a href="setup.bat"><button type="button">SETUP</button></a>
+  <select id="source" name="source"></select>
+</div>
+
 <div class="container">
   <video autoplay></video>	
 </div>
