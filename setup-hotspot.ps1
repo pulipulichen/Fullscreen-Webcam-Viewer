@@ -6,6 +6,7 @@ $Passphrase = "123456789"
 # Upper max client connections
 
 ## Ref: https://learn.microsoft.com/en-us/answers/questions/314514/add-registry-key-using-powershell
+## Ref: https://learn.microsoft.com/en-us/answers/questions/799241/windows-10-mobile-hotspot
 $registryPath = "HKLM:\SYSTEM\CurrentControlSet\Services\icssvc\Settings";
 If ( !(Test-Path $registryPath) ) { New-Item -Path $registryPath -Force; };
 New-ItemProperty -Path $registryPath -Name "WifiMaxPeers" -Value 128 -PropertyType DWORD -Force;
