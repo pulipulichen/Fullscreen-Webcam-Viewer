@@ -1,4 +1,4 @@
-$toAdapterName = 'ASIX AX88179A*'
+$toAdapterName = 'ASIX AX88179 *'
 
 function Set-MrInternetConnectionSharing {
 
@@ -114,10 +114,10 @@ function Set-MrInternetConnectionSharing {
 
 #(Get-NetAdapter).Name 
 $fromAdapter = Get-NetAdapter -physical | where status -eq 'up'
-$fromAdapter = $fromAdapter.name
+$fromAdapter = $fromAdapter[0].name
 
 $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
-$toAdapter = $toAdapter.name
+$toAdapter = $toAdapter[0].name
 
 Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -LocalInterfaceName $toAdapter -Enabled $true
 
