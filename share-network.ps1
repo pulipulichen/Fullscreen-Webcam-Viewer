@@ -1,4 +1,4 @@
-$toAdapterMacAddress = '08-26-AE-39-3F-E2'
+$toAdapterName = 'ASIX AX88179A*'
 
 function Set-MrInternetConnectionSharing {
 
@@ -68,7 +68,7 @@ function Set-MrInternetConnectionSharing {
     )
 
     BEGIN {
-        if ((Get-NetAdapter | Get-MrInternetConnectionSharing).SharingEnabled -contains $true -and $Enabled) {
+        if ((Get-NetAdapter).SharingEnabled -contains $true -and $Enabled) {
             Write-Warning -Message 'Unable to continue due to Internet connection sharing already being enabled for one or more network adapters.'
             Break
         }
@@ -116,8 +116,8 @@ function Set-MrInternetConnectionSharing {
 $fromAdapter = Get-NetAdapter -physical | where status -eq 'up'
 $fromAdapter = $fromAdapter.name
 
-$toAdapter = Get-NetAdapter -physical | where MacAddress -eq $toAdapterMacAddress
-$todapter = $toAdapter.name
+$toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
+$toAdapter = $toAdapter.name
 
 Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -LocalInterfaceName $toAdapter -Enabled $true
 
