@@ -1,4 +1,4 @@
-$toAdapterMacAddress = '00-00-00-00-04-DA'
+$toAdapterMacAddress = '08-26-AE-39-3F-E2'
 
 function Set-MrInternetConnectionSharing {
 
@@ -120,3 +120,15 @@ $toAdapter = Get-NetAdapter -physical | where MacAddress -eq $toAdapterMacAddres
 $todapter = $toAdapter.name
 
 Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -LocalInterfaceName $toAdapter -Enabled $true
+
+Start-Sleep -Seconds 1.5
+
+Disable-NetAdapter -Name $toAdapter -Confirm:$false
+Start-Sleep -Seconds 1.5
+Enable-NetAdapter -Name $toAdapter -Confirm:$false
+
+Start-Sleep -Seconds 1.5
+
+Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
+Start-Sleep -Seconds 1.5
+Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
