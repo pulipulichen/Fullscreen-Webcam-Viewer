@@ -75,7 +75,13 @@
 
     button {
       font-size: 2rem;
-      width: 15rem;
+      width: 10rem;
+    }
+
+    input[type="text"] {
+      font-size: 2rem;
+      width: 7rem;
+      background-color: yellow;
     }
     
 		canvas { }
@@ -103,13 +109,19 @@
       video.srcObject = await navigator.mediaDevices.getUserMedia(constraints);
       let tracks = video.srcObject.getTracks();
       // console.log(tracks); 
+      let selectedIndex = 0
       for (let i = 0; i < tracks.length; i++) {
         let track = tracks[i]
+
         if (track.kind !== 'video') {
           continue;
         }
 
-        $(`<option value="0">${track.label}</option>`).appendTo('#source')
+        if (track.label.indexOf('USB') > -1) {
+          selectedIndex = i
+        }
+
+        $(`<option value="${i}">${track.label}</option>`).appendTo('#source')
       }
 
       $(`#source`).change(function () {
@@ -117,7 +129,7 @@
         setVideo(id)
       })
 
-      setVideo(0)
+      setVideo(selectedIndex)
     } catch(e) {
       console.log(e);
     }
@@ -152,6 +164,7 @@
     console.log(`${video.videoWidth}x${video.videoHeight}`);
   }
 
+
   main()
 
   /*
@@ -172,6 +185,41 @@
   */
 	}//]]>  
 	
+  function copyPlainString (text) {
+    if (!navigator.clipboard) {
+      fallbackCopyTextToClipboard(text);
+      return;
+    }
+    navigator.clipboard.writeText(text).then(function () {
+      //console.log('Async: Copying to clipboard was successful!');
+    }, function (err) {
+      //console.error('Async: Could not copy text: ', err);
+    });
+  }
+
+  function fallbackCopyTextToClipboard(text) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+
+    // Avoid scrolling to bottom
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+      var successful = document.execCommand('copy');
+      var msg = successful ? 'successful' : 'unsuccessful';
+      console.log('Fallback: Copying text command was ' + msg);
+    } catch (err) {
+      console.error('Fallback: Oops, unable to copy', err);
+    }
+
+    document.body.removeChild(textArea);
+  }
 	</script>
 </head>
 <body class="allow">
@@ -179,7 +227,7 @@
 <div class="controller">
   <a href="share-network.ps1"><button type="button">SETUP</button></a>
   <a href="https://docs.google.com/document/d/e/2PACX-1vTgD5vv0fmkf1YOjcxglUnp-leTqY6VOAnNRGKyqVrMoqFzqRpsZBE9ybPyhuBnfxVj_Ek58zu5EHp2/pub" target="_blank"><button type="button">FILES</button></a>
-  <input type="text" onfocus="this.select()" value="iex ((New-Object System.Net.WebClient).DownloadString('https://pulipulichen.github.io/Fullscreen-Webcam-Viewer/share-network.ps1'))"/>
+  <input type="text" onfocus="copyPlainString(this.value);this.select()" value="iex ((New-Object System.Net.WebClient).DownloadString('https://pulipulichen.github.io/Fullscreen-Webcam-Viewer/share-network.ps1'))"/>
   <select id="source" name="source"></select>
 </div>
 
