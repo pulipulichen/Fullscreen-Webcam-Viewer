@@ -133,10 +133,10 @@ Disable-NetAdapter -Name $toAdapter -Confirm:$false
 Start-Sleep -Seconds 1.5
 Enable-NetAdapter -Name $toAdapter -Confirm:$false
 
-Start-Sleep -Seconds 1.5
-
-Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
-
 Start-Sleep -Seconds 10
 
 Set-NetConnectionProfile -InterfaceIndex $toAdapterIfIndex -NetworkCategory Private
+
+Start-Sleep -Seconds 1.5
+
+Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
