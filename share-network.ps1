@@ -138,6 +138,7 @@ Enable-NetAdapter -Name $toAdapter -Confirm:$false
 
 while($toAdapter[0].Status -eq 'Disconnected')
 {
+    echo "Wait for connect"
     Start-Sleep -Seconds 3
     $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
 }
