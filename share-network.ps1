@@ -139,7 +139,15 @@ Start-Sleep -Seconds 30
 
 #Set-NetConnectionProfile -InterfaceIndex $toAdapterIfIndex -NetworkCategory Private
 
-Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -LocalInterfaceName $toAdapter -Enabled $true
+while ($true) {
+    try {
+        Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -LocalInterfaceName $toAdapter -Enabled $true
+        break
+    } 
+    catch {
+        Start-Sleep -Seconds 3
+    }
+}
 
 Start-Sleep -Seconds 1.5
 
