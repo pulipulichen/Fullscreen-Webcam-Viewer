@@ -117,10 +117,10 @@ $fromAdapter = Get-NetAdapter -physical | where status -eq 'up'
 $fromAdapter = $fromAdapter[0].name
 
 $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
-$toAdapterIfIndex = $toAdapter[0].ifIndex
+#$toAdapterIfIndex = $toAdapter[0].ifIndex
 $toAdapter = $toAdapter[0].name
 
-# Set-NetConnectionProfile -InterfaceIndex $toAdapterIfIndex -NetworkCategory Private
+#Set-NetConnectionProfile -InterfaceIndex $toAdapterIfIndex -NetworkCategory Private
 
 Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -LocalInterfaceName $toAdapter -Enabled $true
 
@@ -135,3 +135,7 @@ Start-Sleep -Seconds 1.5
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 Start-Sleep -Seconds 1.5
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+
+Start-Sleep -Seconds 10
+
+Set-NetConnectionProfile -InterfaceIndex $toAdapterIfIndex -NetworkCategory Private
