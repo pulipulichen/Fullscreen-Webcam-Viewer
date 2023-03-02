@@ -125,6 +125,8 @@ $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdap
 $toAdapterIfIndex = $toAdapter[0].ifIndex
 $toAdapter = $toAdapter[0].name
 
+Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -Enabled $false
+
 Enable-NetAdapter -Name $toAdapter -Confirm:$false
 
 while($toAdapter[0].Status -eq 'Disconnected')
