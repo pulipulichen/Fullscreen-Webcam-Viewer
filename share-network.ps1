@@ -117,7 +117,7 @@ Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 Start-Sleep -Seconds 1.5
 
 #(Get-NetAdapter).Name 
-$fromAdapter = Get-NetAdapter -physical | where status -eq 'up'
+$fromAdapter = Get-NetAdapter -physical | where status -eq 'up' | where InterfaceDescription -notlike $toAdapterName
 $fromAdapter = $fromAdapter[0].name
 
 $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
@@ -135,13 +135,14 @@ while($toAdapter[0].Status -eq 'Disconnected')
     $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
 }
 
-Start-Sleep -Seconds 30
+#Start-Sleep -Seconds 30
 
 #Set-NetConnectionProfile -InterfaceIndex $toAdapterIfIndex -NetworkCategory Private
 
 while ($true) {
     try {
         Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -LocalInterfaceName $toAdapter -Enabled $true
+        echo 'share'
         break
     } 
     catch {
