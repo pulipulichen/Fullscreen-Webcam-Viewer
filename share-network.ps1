@@ -122,18 +122,18 @@ $fromAdapter = $fromAdapter[0].name
 
 $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
 
-while($toAdapter[0].Status -eq 'Disconnected')
-{
-    Start-Sleep -Seconds 3
-    $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
-}
-
 $toAdapterIfIndex = $toAdapter[0].ifIndex
 $toAdapter = $toAdapter[0].name
 
 Start-Sleep -Seconds 30
 
 Enable-NetAdapter -Name $toAdapter -Confirm:$false
+
+while($toAdapter[0].Status -eq 'Disconnected')
+{
+    Start-Sleep -Seconds 3
+    $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
+}
 
 #Set-NetConnectionProfile -InterfaceIndex $toAdapterIfIndex -NetworkCategory Private
 
