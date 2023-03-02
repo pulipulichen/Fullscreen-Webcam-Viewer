@@ -120,7 +120,7 @@ $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdap
 $toAdapterIfIndex = $toAdapter[0].ifIndex
 $toAdapter = $toAdapter[0].name
 
-Set-NetConnectionProfile -InterfaceIndex $toAdapterIfIndex -NetworkCategory Private
+# Set-NetConnectionProfile -InterfaceIndex $toAdapterIfIndex -NetworkCategory Private
 
 Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -LocalInterfaceName $toAdapter -Enabled $true
 
