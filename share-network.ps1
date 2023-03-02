@@ -1,4 +1,4 @@
-$toAdapterName = 'ASIX AX88179 *'
+$toAdapterName = 'Realtek USB GbE Family Controller *'
 
 function Set-MrInternetConnectionSharing {
 
@@ -118,6 +118,8 @@ $fromAdapter = $fromAdapter[0].name
 
 $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
 $toAdapter = $toAdapter[0].name
+
+Set-NetConnectionProfile -InternetInterfaceName $toAdapter -NetworkCategory Private
 
 Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -LocalInterfaceName $toAdapter -Enabled $true
 
