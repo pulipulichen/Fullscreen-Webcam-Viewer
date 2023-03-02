@@ -117,9 +117,10 @@ $fromAdapter = Get-NetAdapter -physical | where status -eq 'up'
 $fromAdapter = $fromAdapter[0].name
 
 $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
+$toAdapterIfIndex = $toAdapter[0].ifIndex
 $toAdapter = $toAdapter[0].name
 
-Set-NetConnectionProfile -InternetInterfaceName $toAdapter -NetworkCategory Private
+Set-NetConnectionProfile -InterfaceIndex $toAdapterIfIndex -NetworkCategory Private
 
 Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -LocalInterfaceName $toAdapter -Enabled $true
 
