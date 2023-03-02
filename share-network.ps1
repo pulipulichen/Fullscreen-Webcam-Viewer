@@ -122,6 +122,13 @@ $fromAdapter = $fromAdapter[0].name
 
 $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
 
+while($toAdapter.length -eq 0)
+{
+    echo "Adapter not found."
+    Start-Sleep -Seconds 3
+    $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
+}
+
 $toAdapterIfIndex = $toAdapter[0].ifIndex
 $toAdapter = $toAdapter[0].name
 
