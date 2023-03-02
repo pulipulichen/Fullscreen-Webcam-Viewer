@@ -112,6 +112,9 @@ function Set-MrInternetConnectionSharing {
 
 }
 
+Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
+Start-Sleep -Seconds 1.5
+
 #(Get-NetAdapter).Name 
 $fromAdapter = Get-NetAdapter -physical | where status -eq 'up'
 $fromAdapter = $fromAdapter[0].name
@@ -132,8 +135,6 @@ Enable-NetAdapter -Name $toAdapter -Confirm:$false
 
 Start-Sleep -Seconds 1.5
 
-Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
-Start-Sleep -Seconds 1.5
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
 
 Start-Sleep -Seconds 10
