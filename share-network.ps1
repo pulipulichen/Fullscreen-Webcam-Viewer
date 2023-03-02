@@ -125,6 +125,7 @@ $toAdapterIfIndex = $toAdapter[0].ifIndex
 $toAdapter = $toAdapter[0].name
 
 #Set-NetConnectionProfile -InterfaceIndex $toAdapterIfIndex -NetworkCategory Private
+Enable-NetAdapter -Name $toAdapter -Confirm:$false
 
 Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -LocalInterfaceName $toAdapter -Enabled $true
 
