@@ -1,5 +1,5 @@
-#$toAdapterName = 'Realtek USB GbE Family Controller *'
-$toAdapterName = 'ASIX AX88179 *'
+$toAdapterName = 'Realtek USB GbE Family Controller *'
+#$toAdapterName = 'ASIX AX88179 *'
 
 function Set-MrInternetConnectionSharing {
 
@@ -143,6 +143,7 @@ while($toAdapter[0].Status -eq 'Disconnected')
     $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
 }
 
+echo "Waiting AP booting..."
 Start-Sleep -Seconds 30
 
 #Set-NetConnectionProfile -InterfaceIndex $toAdapterIfIndex -NetworkCategory Private
