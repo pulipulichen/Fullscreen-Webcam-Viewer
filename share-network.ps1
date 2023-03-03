@@ -130,6 +130,7 @@ while($toAdapter.length -eq 0)
 }
 
 $toAdapterIfIndex = $toAdapter[0].ifIndex
+$toAdapterStatus = $toAdapter[0].Status
 $toAdapter = $toAdapter[0].name
 
 Set-NetIPInterface -InterfaceIndex $toAdapterIfIndex -InterfaceMetric 999
@@ -142,11 +143,15 @@ Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -Enabled $fa
 
 Enable-NetAdapter -Name $toAdapter -Confirm:$false
 
-while($toAdapter[0].Status -eq 'Disconnected')
+while($toAdapterStatus -eq 'Disconnected')
 {
     echo "Wait for connect"
     Start-Sleep -Seconds 3
     $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
+
+    $toAdapterIfIndex = $toAdapter[0].ifIndex
+    $toAdapterStatus = $toAdapter[0].Status
+    $toAdapter = $toAdapter[0].name
 }
 
 echo "Waiting for AP booting... 30 sec"
