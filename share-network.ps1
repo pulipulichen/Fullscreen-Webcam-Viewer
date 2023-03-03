@@ -132,6 +132,9 @@ while($toAdapter.length -eq 0)
 $toAdapterIfIndex = $toAdapter[0].ifIndex
 $toAdapter = $toAdapter[0].name
 
+$toAdapter | Set-NetIPInterface -DHCP Enabled
+$toAdapter | Set-DnsClientServerAddress -ResetServerAddresses
+
 Stop-Service SharedAccess
 Start-Sleep -Seconds 1.5
 Start-Service SharedAccess
