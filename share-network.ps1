@@ -165,6 +165,7 @@ Start-Sleep -Seconds 10
 
 while ($true) {
     try {
+        Stop-Service -Name SharedAccess
         Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -LocalInterfaceName $toAdapter -Enabled $true
         echo 'share'
         break
