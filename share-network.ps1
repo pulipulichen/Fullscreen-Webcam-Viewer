@@ -1,4 +1,4 @@
-$toAdapterName = 'Realtek USB GbE Family Controller *'
+$toAdapterName = 'Realtek USB GbE Family*'
 #$toAdapterName = 'ASIX AX88179 *'
 
 function Set-MrInternetConnectionSharing {
