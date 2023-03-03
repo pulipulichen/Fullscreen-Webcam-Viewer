@@ -137,7 +137,7 @@ Set-NetIPInterface -InterfaceIndex $toAdapterIfIndex -InterfaceMetric 999
 Set-NetIPInterface -InterfaceIndex $toAdapterIfIndex -DHCP Disabled
 Set-DnsClientServerAddress -InterfaceIndex $toAdapterIfIndex -ResetServerAddresses
 
-Restart-Service -Name SharedAccess
+Stop-Service -Name SharedAccess
 Start-Sleep -Seconds 3
 Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -Enabled $false
 
