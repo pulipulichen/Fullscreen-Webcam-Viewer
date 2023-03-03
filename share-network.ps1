@@ -173,6 +173,7 @@ while ($true) {
         echo 'share failed...'
         echo $fromAdapter
         echo $toAdapter
+        Stop-Service -Name SharedAccess
         Start-Sleep -Seconds 3
     }
 }
