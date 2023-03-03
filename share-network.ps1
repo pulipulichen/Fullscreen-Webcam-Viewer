@@ -138,6 +138,7 @@ Set-DnsClientServerAddress -InterfaceIndex $toAdapterIfIndex -ResetServerAddress
 Stop-Service SharedAccess
 Start-Sleep -Seconds 1.5
 Start-Service SharedAccess
+Start-Sleep -Seconds 3
 Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -Enabled $false
 
 Enable-NetAdapter -Name $toAdapter -Confirm:$false
