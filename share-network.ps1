@@ -190,4 +190,13 @@ Start-Sleep -Seconds 10
 
 Start-Sleep -Seconds 1.5
 
-Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+$windowsInfo = Get-ComputerInfo | select WindowsProductName, WindowsVersion, OsHardwareAbstractionLayer
+$windowsVersion = $windowsInfo.WindowsVersion
+
+if ($windowsVersion -ne 11) {
+    Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+    echo "Enable Firewall"
+}
+else {
+    echo "Disable Firewall"
+}
