@@ -1,4 +1,5 @@
-$toAdapterName = 'ASIX AX88179 *'
+$toAdapterName = 'Realtek USB GbE Family*'
+#$toAdapterName = 'ASIX AX88179 *'
 
 function Set-MrInternetConnectionSharing {
 
@@ -112,14 +113,71 @@ function Set-MrInternetConnectionSharing {
 
 }
 
+Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
+Start-Sleep -Seconds 1.5
+
 #(Get-NetAdapter).Name 
-$fromAdapter = Get-NetAdapter -physical | where status -eq 'up'
+$fromAdapter = Get-NetAdapter -physical | where status -eq 'up' | where InterfaceDescription -notlike $toAdapterName
 $fromAdapter = $fromAdapter[0].name
 
 $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
+
+while($toAdapter.length -eq 0)
+{
+    echo "Adapter not found."
+    Start-Sleep -Seconds 3
+    $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
+}
+
+$toAdapterIfIndex = $toAdapter[0].ifIndex
+$toAdapterStatus = $toAdapter[0].Status
 $toAdapter = $toAdapter[0].name
 
-Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -LocalInterfaceName $toAdapter -Enabled $true
+Set-NetIPInterface -InterfaceIndex $toAdapterIfIndex -InterfaceMetric 999
+Set-NetIPInterface -InterfaceIndex $toAdapterIfIndex -DHCP Disabled
+Set-DnsClientServerAddress -InterfaceIndex $toAdapterIfIndex -ResetServerAddresses
+
+Stop-Service -Name SharedAccess
+Start-Sleep -Seconds 3
+Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -Enabled $false
+
+Enable-NetAdapter -Name $toAdapter -Confirm:$false
+
+while($toAdapterStatus -eq 'Disconnected')
+{
+    echo "Wait for connect"
+    Start-Sleep -Seconds 3
+    $toAdapter = Get-NetAdapter -physical | where InterfaceDescription -like $toAdapterName
+
+    $toAdapterIfIndex = $toAdapter[0].ifIndex
+    $toAdapterStatus = $toAdapter[0].Status
+    $toAdapter = $toAdapter[0].name
+}
+
+echo "Waiting for AP booting... 30 sec"
+Start-Sleep -Seconds 10
+echo "Waiting for AP booting... 20 sec"
+Start-Sleep -Seconds 10
+echo "Waiting for AP booting... 10 sec"
+Start-Sleep -Seconds 10
+
+#Set-NetConnectionProfile -InterfaceIndex $toAdapterIfIndex -NetworkCategory Private
+
+while ($true) {
+    try {
+        Stop-Service -Name SharedAccess
+        Set-MrInternetConnectionSharing -InternetInterfaceName $fromAdapter -LocalInterfaceName $toAdapter -Enabled $true
+        echo 'share'
+        break
+    } 
+    catch {
+        echo 'share failed...'
+        echo $fromAdapter
+        echo $toAdapter
+        Stop-Service -Name SharedAccess
+        Start-Sleep -Seconds 3
+    }
+}
 
 Start-Sleep -Seconds 1.5
 
@@ -127,8 +185,18 @@ Disable-NetAdapter -Name $toAdapter -Confirm:$false
 Start-Sleep -Seconds 1.5
 Enable-NetAdapter -Name $toAdapter -Confirm:$false
 
+Start-Sleep -Seconds 10
+
+#Set-NetConnectionProfile -InterfaceIndex $toAdapterIfIndex -NetworkCategory Private
+
 Start-Sleep -Seconds 1.5
 
-Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
-Start-Sleep -Seconds 1.5
-Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+$windowsVersion = (Get-WmiObject -class Win32_OperatingSystem).Caption
+
+if ($windowsVersion -notlike "*Windows 11*") {
+    Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+    echo "Enable Firewall"
+}
+else {
+    echo "Disable Firewall"
+}
