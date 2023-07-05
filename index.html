@@ -161,6 +161,7 @@
       $('body').removeClass('allow')
     }
     await new Promise(resolve => video.onloadedmetadata = resolve);
+    // playAudioFromUSB()
     console.log(`${video.videoWidth}x${video.videoHeight}`);
   }
 
@@ -220,12 +221,35 @@
 
     document.body.removeChild(textArea);
   }
+
+  function playAudioFromUSB() {
+    navigator.getUserMedia = navigator.getUserMedia ||navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+    
+    var aCtx;
+    var analyser;
+    var microphone;
+    if (navigator.getUserMedia) {
+      navigator.getUserMedia(
+        {audio: true}, 
+        function(stream) {
+          // console.log(stream)
+          aCtx = new AudioContext();
+          microphone = aCtx.createMediaStreamSource(stream);
+          var destination=aCtx.destination;
+          // console.log(destination)
+          microphone.connect(destination);
+        },
+        function(){ console.log("Error 003.")}
+      );
+    }
+  }
+
 	</script>
 </head>
 <body class="allow">
 
 <div class="controller">
-  <a href="share-network.ps1"><button type="button">SETUP</button></a>
+  <button type="button" onclick="playAudioFromUSB()">AUDIO</button>
   <a href="https://docs.google.com/document/d/e/2PACX-1vTgD5vv0fmkf1YOjcxglUnp-leTqY6VOAnNRGKyqVrMoqFzqRpsZBE9ybPyhuBnfxVj_Ek58zu5EHp2/pub" target="_blank"><button type="button">FILES</button></a>
   <input type="text" onfocus="copyPlainString(this.value);this.select()" value="iex ((New-Object System.Net.WebClient).DownloadString('https://pulipulichen.github.io/Fullscreen-Webcam-Viewer/share-network.ps1'))"/>
   <select id="source" name="source"></select>
