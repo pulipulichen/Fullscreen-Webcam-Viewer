@@ -1,12 +1,11 @@
 let app = {
   props: ['db'],
   components: {
-    // DataTaskManager: () => import(/* webpackChunkName: "components/DataTaskManager" */ './DataTaskManager/DataTaskManager.vue')
+    ConfigurationPanelFields: () => import('./ConfigurationPanelFields/ConfigurationPanelFields.vue')
   },
   data () {    
     this.$i18n.locale = this.db.localConfig.locale
     return {
-      audioEnabled: false
     }
   },
   watch: {
@@ -21,7 +20,6 @@ let app = {
     
   },
   methods: {
-    
   }
 }
 

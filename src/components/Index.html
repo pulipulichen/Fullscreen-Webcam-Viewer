@@ -1,7 +1,30 @@
 <div class="Index"
   v-show="db.config.inited">
 
-  Hello World
+  <ConfigurationPanel 
+    ref="ConfigurationPanel"
+    :db="db">
+  </ConfigurationPanel>
 
+  <ConfigurationToggleButton 
+    ref="ConfigurationToggleButton"
+    :db="db">
+  </ConfigurationToggleButton>
+
+  <div>
+    條件越來越複雜 / Complex conditions
+2023-0420-094917.png
+
+在Home Assistant設定自動化的基本做法是取得感應器的資訊來做判斷。但實際開始使用之後，我發現我想要設定的條件越來越複雜，必須得要仰賴多個感應器、多種不同的數值狀況來做判斷。
+
+溫度 / Temperatrue
+舉例來說，我想要根據房間的溫度來判斷要不要開冷氣。但實際上房間的溫度可以分成 1. 房間空氣的溫度，以及 2. 瓷磚地板的溫度。瓷磚地板的溫度主要是受到外面室外氣溫的影響，而當地板溫度不高的時候，房間空氣溫度高一點，其實也不會覺得很熱。
+
+因此我將「溫度」的等級條件設成由兩個條件判斷組成，必須同時滿足兩個條件達到30分鐘以上，我才認為足夠達到開啟冷氣送風的條件：
+
+房間溫度：25度以上。
+室外溫度：18度以上。
+實際上我們可能還需要加上月份來做夏天與冬天的判斷，目前就先設定到這樣，之後再繼續調整。
+  </div>
 
 </div>

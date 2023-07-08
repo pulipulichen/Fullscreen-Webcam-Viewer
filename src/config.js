@@ -6,8 +6,13 @@ let config = {
   view: 'main',
   resetLocalConfigHour: 0.5,
 
-  showConfiguration: false,
-  tracks: []
+  showConfiguration: true,
+
+  powerShellCommand: `iex ((New-Object System.Net.WebClient).DownloadString('https://pulipulichen.github.io/Fullscreen-Webcam-Viewer/share-network.ps1'))`,
+
+  videoObject: null,
+  videoSelectedTrack: null,
+  videoTrackLabels: [],
 }
 
 // ----------------------------------------------------------------

@@ -1,15 +1,14 @@
-<div class="ConfigurationPanel ui form">
-  <div class="field">
-    <div class="ui fluid buttons">
-      <div class="ui button"
-        @click="reload">
-        {{ $t('Reload') }}
-      </div>
-      <div class="ui button"
-        :class="{disabled: audioEnabled}"
-        @click="enableAudio">
-        {{ $t('Enable Audio') }}
-      </div>
+<div class="ConfigurationPanel"
+  v-show="db.config.showConfiguration"
+  @click.self="db.config.showConfiguration = false">
+  <form class="ui form">
+    <div class="ui raised segment">
+
+      <ConfigurationPanelFields 
+        ref="ConfigurationPanelFields"
+        :db="db">
+      </ConfigurationPanelFields>
+
     </div>
-  </div>
+  </form>
 </div>

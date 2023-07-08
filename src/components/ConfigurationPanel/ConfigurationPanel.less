@@ -1,3 +1,27 @@
-.ComponentTemplate {
-  
+.ConfigurationPanel {
+  position: fixed;
+
+  width: 100vw;
+  height: 100vh;
+
+  z-index: 1;
+
+  @padding: 2rem;
+  padding: @padding;
+  padding-bottom: (@padding * 2);
+
+  cursor: pointer;
+
+  form {
+    cursor: default;
+  }
+
+  .segment {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+
+    min-height: calc(100vh - (@padding * 3));
+    max-height: calc(100vh - (@padding * 3));
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 }

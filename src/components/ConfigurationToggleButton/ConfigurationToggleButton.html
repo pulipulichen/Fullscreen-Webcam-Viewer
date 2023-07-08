@@ -1,0 +1,8 @@
+<div class="ConfigurationToggleButton ui icon button"
+  @click="db.config.showConfiguration = !db.config.showConfiguration">
+  
+  <i class="bars icon"
+    v-if="!db.config.showConfiguration"></i>
+  <i class="close icon"
+    v-if="db.config.showConfiguration"></i>
+</div>

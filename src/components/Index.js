@@ -5,8 +5,8 @@ let Index = {
   props: ['db', 'view', 'search'],
   components: {
     ConfigurationPanel: () => import(/* webpackChunkName: "components/ConfigurationPanel" */ './ConfigurationPanel/ConfigurationPanel.vue'),
+    ConfigurationToggleButton: () => import(/* webpackChunkName: "components/ConfigurationToggleButton" */ './ConfigurationToggleButton/ConfigurationToggleButton.vue'),
     // DashboardPanel: () => import(/* webpackChunkName: "components/DashboardPanel" */ './DashboardPanel/DashboardPanel.vue'),
-    // ConfigurationToggleButton: () => import(/* webpackChunkName: "components/ConfigurationToggleButton" */ './ConfigurationToggleButton/ConfigurationToggleButton.vue'),
   },
   data() {
     this.$i18n.locale = this.db.config.localConfig

@@ -1,0 +1,47 @@
+<div class="ConfigurationPanelFields">
+  <div class="field">
+    <label for="ConfigurationPanelFieldsCommand">
+      {{ $t('Power Shell Command (for Administrator):') }}
+    </label>
+    <div class="ui labeled input">
+      <a class="ui label"
+        @click="copyCommand">
+        {{ $t('COPY') }}
+      </a>
+      <input type="text" 
+        id="ConfigurationPanelFieldsCommand"
+        v-model="db.config.powerShellCommand"
+        readonly
+        onfocus="this.select()"
+        @clcik="copyCommand" />
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="ui fluid buttons">
+      <div class="ui button"
+        @click="reload">
+        {{ $t('Reload') }}
+      </div>
+      <div class="ui button"
+        :class="{disabled: audioEnabled}"
+        @click="enableAudio">
+        {{ $t('Enable Audio') }}
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>
+      {{ $t('Video tracks:') }}
+    </label>
+    <div class="ui fluid buttons">
+      <div class="ui button"
+        v-for="label in db.config.videoTrackLabels"
+        :class="{disabled: (label === db.config.videoSelectedTrack)}"
+        @click="db.config.videoSelectedTrack = label">
+        {{ label }}
+      </div>
+    </div>
+  </div>
+</div>

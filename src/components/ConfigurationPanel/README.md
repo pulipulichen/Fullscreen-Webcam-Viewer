@@ -1,7 +1,7 @@
 
 ````html
-<ComponentTemplate 
-  ref="ComponentTemplate"
+<ConfigurationPanel 
+  ref="ConfigurationPanel"
   :db="db">
-</ComponentTemplate>
+</ConfigurationPanel>
 ````
