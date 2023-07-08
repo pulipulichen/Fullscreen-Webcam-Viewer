@@ -89,6 +89,7 @@
     "mime-types": "2.1.35",
     "linkifyjs": "4.1.1",
     "linkify-html": "4.1.1",
-    "vue-quill-editor": "3.0.6"
+    "vue-quill-editor": "3.0.6",
+    "vue-number-animation": "1.1.2"
   }
 }

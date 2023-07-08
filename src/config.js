@@ -6,13 +6,21 @@ let config = {
   view: 'main',
   resetLocalConfigHour: 0.5,
 
-  showConfiguration: true,
+  showConfiguration: false,
 
   powerShellCommand: `iex ((New-Object System.Net.WebClient).DownloadString('https://pulipulichen.github.io/Fullscreen-Webcam-Viewer/share-network.ps1'))`,
 
   videoObject: null,
   videoSelectedTrack: null,
+  videoSelectedTrackIndex: -1,
   videoTrackLabels: [],
+
+  audioStream: null,
+  audioTracks: [],
+
+  loadVoteURL: `https://script.google.com/macros/s/AKfycbzuGriN3krNlVJc2C3_sk1-QCypHW9hPDZwJKMStZtC4Ge9GTBb-48qiv82J1-HSw-E/exec`,
+  voteSheetURL: 'https://docs.google.com/spreadsheets/d/1_-YWGghERf7pM3pQw9po6E7TEfjatnYLaQKUSyp2xKE/edit#gid=0',
+  voterAppURL: `https://pulipulichen.github.io/PWA-Online-Voting/`
 }
 
 // ----------------------------------------------------------------

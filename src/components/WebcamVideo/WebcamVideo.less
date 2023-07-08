@@ -1,3 +1,36 @@
-.ComponentTemplate {
+video { 
+      
+  // max-width: 100vw;
+  max-width: 100%;
   
+  width: auto;
+  // max-height: calc(100vh - 3rem);
+  max-height: calc(100vh);
+  /*min-height: 1200px;*/
+  height: auto;
+  cursor: pointer;
+
+  /*
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  */
+  /*
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  */
+  z-index: -100;
+  /*background-size: cover;*/
+  transition: 1s opacity;
+  /*
+  -moz-transform: scale(-1, 1); 
+  -webkit-transform: scale(-1, 1); -o-transform: scale(-1, 1); 
+  transform: scale(-1, 1); filter: FlipH;
+  */
+}
+
+::-webkit-media-controls {
+  display:none !important;
 }

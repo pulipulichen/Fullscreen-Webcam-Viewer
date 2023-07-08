@@ -1,0 +1,32 @@
+.VotePanel {
+  .qrcode {
+    width: 100%;
+    height: auto;
+
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .statistic {
+    margin-left: auto;
+    margin-right: auto;
+
+    .value {
+      transition: color 0.5s linear;
+
+      &.increasing-small {
+        color: yellow !important;
+      }
+
+      &.increasing-large {
+        // color: green !important;
+        color: #92C895 !important;
+      }
+    }
+      
+  }
+
+  text-align: center;
+  user-select: none;
+  cursor: default;
+}

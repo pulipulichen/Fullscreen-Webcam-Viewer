@@ -1,0 +1,22 @@
+<div class="VotePanel">
+  <a :href="voterAppURL"
+    target="_blank"
+    @click.prevent.stop="popup(voterAppURL)">
+    <img class="qrcode" src="./qrcode.svg" />
+  </a>
+    
+
+  <a class="ui inverted statistic"
+    :href="voteSheetURL"
+    target="_blank"
+    @click.prevent.stop="popup(voteSheetURL)">
+    <div class="value"
+      :class="computedVoteClasses">
+      <number
+        ref="number1"
+      	:to="vote"
+      	:duration="computedDuration"
+        easing="Power1.easeOut"/>
+    </div>
+  </a>
+</div>

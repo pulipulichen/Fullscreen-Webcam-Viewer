@@ -7,7 +7,8 @@ let app = {
   data () {    
     this.$i18n.locale = this.db.localConfig.locale
     return {
-      audioEnabled: false
+      audioEnabled: false,
+      audioDisabledTracks: []
     }
   },
   watch: {
@@ -20,6 +21,7 @@ let app = {
   },
   mounted() {
     this.init()
+    // this.enableAudio()
   },
   methods: {
     init: async function () {
@@ -39,6 +41,7 @@ let app = {
   
           if (track.label.indexOf('USB') > -1) {
             this.db.config.videoSelectedTrack = track.label
+            this.db.config.videoSelectedTrackIndex = i
           }
           this.db.config.videoTrackLabels.push(track.label)
   
@@ -49,7 +52,7 @@ let app = {
             this.db.config.videoTrackLabels.length > 0) {
           this.db.config.videoSelectedTrack = this.db.config.videoTrackLabels[0]
         } 
-        console.log(this.db.config.videoSelectedTrack)
+        // console.log(this.db.config.videoSelectedTrack)
 
       } catch(e) {
         console.log(e);
@@ -69,9 +72,14 @@ let app = {
           {audio: true}, 
           (stream) => {
             // console.log(stream)
+            // console.log(tracks)
+            this.db.config.audioStream = stream
+            this.db.config.audioTracks = stream.getAudioTracks()
+            // console.log(this.db.config.audioTracks)
+
             aCtx = new AudioContext();
             microphone = aCtx.createMediaStreamSource(stream);
-            var destination=aCtx.destination;
+            var destination = aCtx.destination;
             // console.log(destination)
             microphone.connect(destination);
 
@@ -84,6 +92,16 @@ let app = {
     copyCommand () {
       this.db.utils.ClipboardUtils.copyPlainString(this.db.config.powerShellCommand)
     },
+    toggleAudioMuted (track) {
+      track.enabled = !track.enabled
+
+      if (this.audioDisabledTracks.indexOf(track.label) === -1) {
+        this.audioDisabledTracks.push(track.label)
+      }
+      else {
+        this.audioDisabledTracks = this.audioDisabledTracks.filter(t => t !== track.label)
+      }
+    }
   }
 }
 

@@ -1,6 +1,11 @@
 .git
 .github
 output
+assets
+dist
+docker-compose
+files
 cache
+webpack
 /[[]trash/
 /app/__pycache__

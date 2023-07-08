@@ -1,4 +1,14 @@
 <div class="ConfigurationPanelFields">
+
+  <div class="field">
+    <div class="ui fluid buttons">
+      <div class="ui button"
+        @click="reload">
+        {{ $t('Reload') }}
+      </div>
+    </div>
+  </div>
+
   <div class="field">
     <label for="ConfigurationPanelFieldsCommand">
       {{ $t('Power Shell Command (for Administrator):') }}
@@ -18,20 +28,6 @@
   </div>
 
   <div class="field">
-    <div class="ui fluid buttons">
-      <div class="ui button"
-        @click="reload">
-        {{ $t('Reload') }}
-      </div>
-      <div class="ui button"
-        :class="{disabled: audioEnabled}"
-        @click="enableAudio">
-        {{ $t('Enable Audio') }}
-      </div>
-    </div>
-  </div>
-
-  <div class="field">
     <label>
       {{ $t('Video tracks:') }}
     </label>
@@ -41,6 +37,29 @@
         :class="{disabled: (label === db.config.videoSelectedTrack)}"
         @click="db.config.videoSelectedTrack = label">
         {{ label }}
+      </div>
+    </div>
+  </div>
+
+  <div class="field"
+    v-if="!audioEnabled"
+    @click="enableAudio">
+    <div class="ui fluid button">
+      {{ $t('Enable Audio') }}
+    </div>
+  </div>
+
+  <div class="field"
+    v-if="audioEnabled">
+    <label>
+      {{ $t('Audio tracks:') }}
+    </label>
+    <div class="ui fluid buttons">
+      <div class="ui button"
+        v-for="(track, i) in db.config.audioTracks"
+        :class="{positive: (audioDisabledTracks.indexOf(track.label) === -1)}"
+        @click="toggleAudioMuted(track)">
+        {{ track.label }}
       </div>
     </div>
   </div>
