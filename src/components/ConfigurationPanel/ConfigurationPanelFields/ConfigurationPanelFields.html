@@ -63,4 +63,12 @@
       </div>
     </div>
   </div>
+
+  <div class="field"
+    @click="toggleDemo">
+    <div class="ui fluid button"
+      :class="{positive: (db.config.showDemo)}">
+      {{ $t('Show Demo') }}
+    </div>
+  </div>
 </div>

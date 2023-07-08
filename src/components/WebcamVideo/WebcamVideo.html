@@ -1,6 +1,11 @@
 <div class="WebcamVideo">
   <video autoplay
+    class="video"
     ref="Video"
     :style="computedStyle"
-    @click.self="toggleFullscreen"></video>	
+    @click.self="toggleFullscreen"
+    v-show="!db.config.showDemo"></video>	
+  <img src="./demo.png"
+    class="video"
+    v-show="db.config.showDemo" />
 </div>

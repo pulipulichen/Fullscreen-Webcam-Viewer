@@ -5,13 +5,18 @@
   background-color: black !important;
 
   color: white !important;
-}
 
-@vote-column-width: 250px;
-.video.column {
-  width: calc(100vw - @vote-column-width) !important;
-}
+  @vote-column-width: 250px;
+  .video.column {
+    width: calc(100vw - @vote-column-width) !important;
 
-.vote.column {
-  width: @vote-column-width !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center; 
+    height: 100vh;
+  }
+
+  .vote.column {
+    width: @vote-column-width !important;
+  }
 }

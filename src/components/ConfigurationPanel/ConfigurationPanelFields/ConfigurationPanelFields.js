@@ -101,6 +101,11 @@ let app = {
       else {
         this.audioDisabledTracks = this.audioDisabledTracks.filter(t => t !== track.label)
       }
+    },
+    toggleDemo () {
+      this.db.config.showDemo = !this.db.config.showDemo
+
+      this.db.config.showConfiguration = false
     }
   }
 }
