@@ -1,265 +1,53 @@
-
-
 <!DOCTYPE html>
-<html lang='en'>
-<head>
-	<meta charset='utf-8' />
-	<title>Fullscreen Webcam Viewer</title>
-	
-	<meta property="og:title" content="Fullscreen Webcam Viewer"/>
-	<meta property="og:type" content="cause"/>
-	<meta property="og:site_name" content="Fullscreen Webcam Viewer"/>
-	<meta property="og:description" content="Check webcam can display in fullscreen."/>
-	<meta name="description" content="Check webcam can display in fullscreen.">
-
-  <link rel="icon" type="image/png" href="icon.png" />
-  <script src="jquery.js"></script>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<style>
-		body {
-			margin: 0 0 0 0;
-			color:#333;
-			background-color:#222;
-			background-repeat:no-repeat;
-			background-attachment:fixed;
-			background-position:left top; 
-			background-repeat: no-repeat; 
-      overflow:hidden;
-		}
-    body.allow {
-      background-image:url('allow.png');
-    }
-
-    .container {
-      text-align:center;
-    }
-		video { 
-      
-      max-width: 100vw;
-      width: auto;
-      max-height: calc(100vh - 3rem);
-      /*min-height: 1200px;*/
-      height: auto;
-      cursor: pointer;
-
-      /*
-			position: fixed;
-			right: 0;
-			bottom: 0;
-      */
-      /*
-			min-width: 100%;
-			min-height: 100%;
-			width: auto;
-			height: auto;
-      */
-			z-index: -100;
-			/*background-size: cover;*/
-			transition: 1s opacity;
-      /*
-			-moz-transform: scale(-1, 1); 
-			-webkit-transform: scale(-1, 1); -o-transform: scale(-1, 1); 
-			transform: scale(-1, 1); filter: FlipH;
-      */
-		}
-
-    ::-webkit-media-controls {
-      display:none !important;
-    }
-
-    select {
-      /* display: block !important; */
-
-      width: calc(100vw - 35rem);
-      height: 3rem;
-      font-size: 2rem;
-    }
-
-    button {
-      font-size: 2rem;
-      width: 10rem;
-    }
-
-    input[type="text"] {
-      font-size: 2rem;
-      width: 7rem;
-      background-color: yellow;
-    }
+<html>
+  <head>
+    <title>Now Loading</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
     
-		canvas { }
-	</style>
-	<script type='text/javascript'>//<![CDATA[ 
-	window.onload=function(){
-	var video = null;
-	
-	var errorCallback = function(e) {
-		console.log("Error setting up video:", e);
-	};
-	
-  const mediaStreamConstraints = {
-    video: {
-      width: {min: 1280},
-      height: {min: 720}
-    },
-    audio: true
-  };
-
-  let main = async function () {
-    try {
-      video = document.querySelector('video');
-      let constraints = {video: {width: 9999}};
-      video.srcObject = await navigator.mediaDevices.getUserMedia(constraints);
-      let tracks = video.srcObject.getTracks();
-      // console.log(tracks); 
-      let selectedIndex = 0
-      for (let i = 0; i < tracks.length; i++) {
-        let track = tracks[i]
-
-        // if (track.kind !== 'video') {
-        //   continue;
-        // }
-
-        if (track.label.indexOf('USB') > -1) {
-          selectedIndex = i
-        }
-
-        $(`<option value="${i}">${track.label}</option>`).appendTo('#source')
-      }
-
-      $(`#source`).change(function () {
-        let id = Number(this.value)
-        setVideo(id)
-      })
-
-      setVideo(selectedIndex)
-    } catch(e) {
-      console.log(e);
-    }
-  }
-
-  let setVideo = async function (trackId) {
-    let track = video.srcObject.getTracks()[0];
-    if (track.getSettings) {
-      let {width, height} = track.getSettings();
-      console.log(`${width}x${height}`);
-      video.style.width = width+'px';
-      video.style.height = height+'px'
-
-      video.addEventListener('click', function () {
-        if (this.requestFullscreen) {
-          this.requestFullscreen();
-        } 
-        else if (this.mozRequestFullScreen) { 
-          this.mozRequestFullScreen();
-        } 
-        else if (this.webkitRequestFullscreen) { 
-          this.webkitRequestFullscreen();
-        } 
-        else if (this.msRequestFullscreen) { 
-          this.msRequestFullscreen();
-        }
-      })
-
-      $('body').removeClass('allow')
-    }
-    await new Promise(resolve => video.onloadedmetadata = resolve);
-    // playAudioFromUSB()
-    console.log(`${video.videoWidth}x${video.videoHeight}`);
-  }
-
-
-  main()
-
-  /*
-	try{
-
-
-	    navigator.webkitGetUserMedia(mediaStreamConstraints, function(localMediaStream) {
-        
-		    video = document.querySelector('video');
-		    video.srcObject=localMediaStream;
-		    video.muted = true; //this prevents a webcam from echoing in the speakers
-		    video.controls = false; //show fullscreen control elsewhere
-	    }, errorCallback);
-	}catch(e){
-	    console.log(e);
-	    console.log(navigator.webkitGetUserMedia);
-	}
-  */
-	}//]]>  
-	
-  function copyPlainString (text) {
-    // if (!navigator.clipboard) {
-      fallbackCopyTextToClipboard(text);
-      return;
-    // }
-    navigator.clipboard.writeText(text).then(function () {
-      //console.log('Async: Copying to clipboard was successful!');
-    }, function (err) {
-      //console.error('Async: Could not copy text: ', err);
-    });
-  }
-
-  function fallbackCopyTextToClipboard(text) {
-    var textArea = document.createElement("textarea");
-    textArea.value = text;
-
-    // Avoid scrolling to bottom
-    textArea.style.top = "0";
-    textArea.style.left = "0";
-    textArea.style.position = "fixed";
-
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-
-    try {
-      var successful = document.execCommand('copy');
-      var msg = successful ? 'successful' : 'unsuccessful';
-      console.log('Fallback: Copying text command was ' + msg);
-    } catch (err) {
-      console.error('Fallback: Oops, unable to copy', err);
-    }
-
-    document.body.removeChild(textArea);
-  }
-
-  function playAudioFromUSB() {
-    navigator.getUserMedia = navigator.getUserMedia ||navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+    <!-- =================================== -->
     
-    var aCtx;
-    var analyser;
-    var microphone;
-    if (navigator.getUserMedia) {
-      navigator.getUserMedia(
-        {audio: true}, 
-        function(stream) {
-          // console.log(stream)
-          aCtx = new AudioContext();
-          microphone = aCtx.createMediaStreamSource(stream);
-          var destination=aCtx.destination;
-          // console.log(destination)
-          microphone.connect(destination);
-        },
-        function(){ console.log("Error 003.")}
-      );
-    }
-  }
+    <!-- https://www.favicon-generator.org/ -->
+    <link rel="apple-touch-icon" sizes="57x57" href="assets/favicon/generator/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="assets/favicon/generator/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/favicon/generator/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/favicon/generator/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/favicon/generator/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/favicon/generator/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/favicon/generator/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/favicon/generator/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/generator/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="assets/favicon/generator/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/generator/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon/generator/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/generator/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#E1F7F7">
+    <meta name="msapplication-TileImage" content="assets/favicon/generator/ms-icon-144x144.png">
+    <meta name="theme-color" content="#E1F7F7">
+    
+  <!--  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  
+    <script src="https://unpkg.com/cytoscape@3.18.1/dist/cytoscape.min.js"></script>
+    <script src="https://unpkg.com/layout-base@2.0.0/layout-base.js"></script>
+    <script src="https://unpkg.com/cose-base@2.0.0/cose-base.js"></script>
+    <script src="https://unpkg.com/cytoscape-fcose@2.0.0/cytoscape-fcose.js"></script>
+    <script src="https://unpkg.com/cytoscape-layout-utilities/cytoscape-layout-utilities.js"></script>
+  -->
 
-	</script>
-</head>
-<body class="allow">
+    <link rel="manifest" href="./manifest.json">
+<!--
+    <script src="cytoscape-fcose.js"></script>
+    <script src="https://kaluginserg.github.io/cytoscape-node-html-label/dist/cytoscape-node-html-label.js"></script>
+  -->
 
-<div class="controller">
-  <button type="button" onclick="playAudioFromUSB()">AUDIO</button>
-  <a href="https://docs.google.com/document/d/e/2PACX-1vTgD5vv0fmkf1YOjcxglUnp-leTqY6VOAnNRGKyqVrMoqFzqRpsZBE9ybPyhuBnfxVj_Ek58zu5EHp2/pub" target="_blank"><button type="button">FILES</button></a>
-  <input type="text" onfocus="copyPlainString(this.value);this.select()" value="iex ((New-Object System.Net.WebClient).DownloadString('https://pulipulichen.github.io/Fullscreen-Webcam-Viewer/share-network.ps1'))"/>
-  <select id="source" name="source"></select>
-</div>
+    <!-- =================================== -->
 
-<div class="container">
-  <video autoplay></video>	
-</div>
+  </head>
+  <body>
 
-</body>
+    <script src="dist/index.js"></script>
+
+  </body>
 </html>

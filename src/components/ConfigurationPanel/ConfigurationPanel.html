@@ -1,0 +1,15 @@
+<div class="ConfigurationPanel ui form">
+  <div class="field">
+    <div class="ui fluid buttons">
+      <div class="ui button"
+        @click="reload">
+        {{ $t('Reload') }}
+      </div>
+      <div class="ui button"
+        :class="{disabled: audioEnabled}"
+        @click="enableAudio">
+        {{ $t('Enable Audio') }}
+      </div>
+    </div>
+  </div>
+</div>
