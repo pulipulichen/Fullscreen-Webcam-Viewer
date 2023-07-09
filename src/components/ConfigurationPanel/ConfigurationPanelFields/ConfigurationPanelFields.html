@@ -64,6 +64,20 @@
     </div>
   </div>
 
+  <div class="field">
+    <label for="ConfigurationPanelFieldsLevelupThreshold">
+      {{ $t('Level Up Threshold') }}
+    </label>
+    <div class="ui input">
+      <input type="number"
+        min="5"
+        step="5" 
+        id="ConfigurationPanelFieldsLevelupThreshold"
+        v-model="db.config.levelupThreshold"
+        onfocus="this.select()" />
+    </div>
+  </div>
+
   <div class="field"
     @click="toggleDemo">
     <div class="ui fluid button"

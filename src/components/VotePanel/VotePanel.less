@@ -29,4 +29,18 @@
   text-align: center;
   user-select: none;
   cursor: default;
+
+  .levelup {
+    transition: opacity 0.5s linear;
+    opacity: 0;
+
+    // img {
+    //   border-radius: 50%;
+    // }
+    
+
+    &.show {
+      opacity: 1;
+    }
+  }
 }
