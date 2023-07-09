@@ -7,7 +7,7 @@ let config = {
   resetLocalConfigHour: 0.5,
 
   showConfiguration: true,
-  showDemo: true,
+  showDemo: false,
 
   powerShellCommand: `iex ((New-Object System.Net.WebClient).DownloadString('https://pulipulichen.github.io/Fullscreen-Webcam-Viewer/share-network.ps1'))`,
 
