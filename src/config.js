@@ -9,7 +9,7 @@ let config = {
   showConfiguration: true,
   showDemo: false,
 
-  powerShellCommand: `iex ((New-Object System.Net.WebClient).DownloadString('https://pulipulichen.github.io/Fullscreen-Webcam-Viewer/share-network.ps1'))`,
+  powerShellCommand: `iex ((New-Object System.Net.WebClient).DownloadString('https://pulipulichen.github.io/Fullscreen-Webcam-Viewer/assets/share-network.ps1'))`,
 
   videoObject: null,
   videoSelectedTrack: null,
