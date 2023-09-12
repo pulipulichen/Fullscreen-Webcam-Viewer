@@ -27,6 +27,16 @@ let Index = {
         return true
       }
     },
+    computedVideoColumnStyle () {
+      return {
+        'width': `calc(100vw - ${this.db.localConfig.voteColumnWidth}px)`
+      }
+    },
+    computedVoteColumnStyle () {
+      return {
+        'width': `${this.db.localConfig.voteColumnWidth}px`
+      }
+    },
   },
   watch: {
     'db.config.inited'(inited) {

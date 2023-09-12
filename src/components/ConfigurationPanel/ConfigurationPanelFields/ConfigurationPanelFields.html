@@ -64,17 +64,34 @@
     </div>
   </div>
 
-  <div class="field">
-    <label for="ConfigurationPanelFieldsLevelupThreshold">
-      {{ $t('Level Up Threshold') }}
-    </label>
-    <div class="ui input">
-      <input type="number"
-        min="5"
-        step="5" 
-        id="ConfigurationPanelFieldsLevelupThreshold"
-        v-model="db.config.levelupThreshold"
-        onfocus="this.select()" />
+
+  <div class="fields">
+    <div class="eight wide field">
+      <label for="ConfigurationPanelFieldsLevelupThreshold">
+        {{ $t('Level Up Threshold') }}
+      </label>
+      <div class="ui input">
+        <input type="number"
+          min="5"
+          step="5" 
+          id="ConfigurationPanelFieldsLevelupThreshold"
+          v-model="db.config.levelupThreshold"
+          onfocus="this.select()" />
+      </div>
+    </div>
+    <div class="eight wide field">
+      <label for="ConfigurationPanelFieldsVoteColumnWidth">
+        {{ $t('Vote Column Width') }}
+      </label>
+      <div class="ui input">
+        <input type="number"
+          min="200"
+          step="10" 
+          max="400"
+          id="ConfigurationPanelFieldsVoteColumnWidth"
+          v-model="db.localConfig.voteColumnWidth"
+          onfocus="this.select()" />
+      </div>
     </div>
   </div>
 

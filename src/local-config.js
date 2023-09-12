@@ -1,7 +1,6 @@
 let localConfig = {
   lastChanged: null,
-
-  
+  voteColumnWidth: 200,
 }
 
 // ----------------------------------------------------------------

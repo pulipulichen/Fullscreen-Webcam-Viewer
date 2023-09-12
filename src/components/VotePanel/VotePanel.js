@@ -92,11 +92,17 @@ let app = {
     },
     init: async function () {
       setInterval(async () => {
+        if (this.db.config.showDemo) {
+          this.vote = this.utils.DataUtils.randomBetween(500, 3000)
+          return true
+        }
+
         this.vote = await this.loadVote()
       }, this.refreshSeconds * 1000 )
       this.vote = await this.loadVote()
     },
     loadVote: async function () {
+      
       let url = this.db.config.loadVoteURL
       return await this.db.utils.AxiosUtils.get(url)
     },

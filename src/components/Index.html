@@ -13,14 +13,16 @@
   </ConfigurationToggleButton>
 
   <div class="ui grid">
-    <div class="video centered column">
+    <div class="video centered column"
+    :style="computedVideoColumnStyle">
       <WebcamVideo 
         ref="WebcamVideo"
         :db="db">
       </WebcamVideo>
     </div>
     <div class="vote column"
-    @dblclick.self="toggleFullScreen">
+      :style="computedVoteColumnStyle"
+      @dblclick.self="toggleFullScreen">
       <VotePanel 
         ref="VotePanel"
         :db="db">

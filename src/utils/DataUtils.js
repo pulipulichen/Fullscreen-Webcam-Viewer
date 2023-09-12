@@ -31,5 +31,19 @@ export default {
     else {
       return value
     }
+  },
+  randomBetween: function (min, max) {
+    if (!max && min > 0) {
+      max = min
+      min = 0
+    }
+
+    if (max > 0 && min > 0 && max < min) {
+      let temp = min
+      min = max
+      max = temp
+    }
+
+    return Math.floor(Math.random() * max) + min;
   }
 }
