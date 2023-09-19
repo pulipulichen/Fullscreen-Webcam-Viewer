@@ -198,5 +198,5 @@ $windowsVersion = (Get-WmiObject -class Win32_OperatingSystem).Caption
 #    echo "Enable Firewall"
 #}
 #else {
-#    echo "Disable Firewall"
+    echo "Disable Firewall"
 #}
