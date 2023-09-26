@@ -44,7 +44,7 @@ let app = {
 
       // let index = this.db.config.videoSelectedTrackIndex
       // let track = this.db.config.videoObject.getTracks()[index];
-      let videoObject = await navigator.mediaDevices.getUserMedia({ video: { deviceId: this.db.config.videoSelectedTrackDevicesID } })
+      let videoObject = await navigator.mediaDevices.getUserMedia({ video: { deviceId: this.db.config.videoSelectedTrackDevicesID, width: 9999 } })
       let track = videoObject.getTracks()[0]
       console.log(track, this.db.config.videoSelectedTrackDevicesID)
       let video = this.$refs.Video
