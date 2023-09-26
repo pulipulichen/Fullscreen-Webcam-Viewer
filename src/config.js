@@ -12,6 +12,7 @@ let config = {
   powerShellCommand: `iex ((New-Object System.Net.WebClient).DownloadString('https://pulipulichen.github.io/Fullscreen-Webcam-Viewer/assets/share-network.ps1'))`,
 
   videoObject: null,
+  videoDevices: null,
   videoSelectedTrack: null,
   videoSelectedTrackIndex: -1,
   videoTrackLabels: [],

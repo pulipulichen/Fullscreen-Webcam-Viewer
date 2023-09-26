@@ -26,14 +26,18 @@ let app = {
   methods: {
     init: async function () {
       try {
+        //let constraints = {video: {width: 9999}};
+        // let constraints = {video: true, audio: true};
         let constraints = {video: {width: 9999}};
         this.db.config.videoObject = await navigator.mediaDevices.getUserMedia(constraints);
-        let tracks = this.db.config.videoObject.getTracks();
+        this.db.config.videoDevices = await navigator.mediaDevices.enumerateDevices()
+        //let tracks = this.db.config.videoObject.getTracks();
+        // let tracks = this.db.config.videoObject
         // console.log(tracks); 
         // let videoSelectedTrack = 0
         this.db.config.videoTrackLabels = []
-        for (let i = 0; i < tracks.length; i++) {
-          let track = tracks[i]
+        for (let i = 0; i < this.db.config.videoDevices.length; i++) {
+          let track = this.db.config.videoDevices[i]
   
           // if (track.kind !== 'video') {
           //   continue;
@@ -41,17 +45,29 @@ let app = {
   
           if (track.label.indexOf('USB') > -1) {
             this.db.config.videoSelectedTrack = track.label
-            this.db.config.videoSelectedTrackIndex = i
+            this.db.config.videoSelectedTrackIndex = this.db.config.videoTrackLabels.length
           }
-          this.db.config.videoTrackLabels.push(track.label)
+          else if (track.kind === 'videoinput' && this.db.config.videoSelectedTrackIndex === -1) {
+            this.db.config.videoSelectedTrack = track.label
+            this.db.config.videoSelectedTrackIndex = this.db.config.videoTrackLabels.length
+          }
+          if (track.label !== '') {
+            this.db.config.videoTrackLabels.push(track.label)
+          }
   
           // $(`<option value="${i}">${track.label}</option>`).appendTo('#source')
+        }
+
+        if (this.db.config.videoSelectedTrackIndex === -1) {
+          this.db.config.videoSelectedTrackIndex = 0
         }
 
         if (!this.db.config.videoSelectedTrack && 
             this.db.config.videoTrackLabels.length > 0) {
           this.db.config.videoSelectedTrack = this.db.config.videoTrackLabels[0]
         } 
+        console.log(this.db.config.videoSelectedTrack)
+
         // console.log(this.db.config.videoSelectedTrack)
 
       } catch(e) {

@@ -15,6 +15,8 @@ let app = {
       this.$i18n.locale = this.db.localConfig.locale;
     },
     'db.config.videoSelectedTrackIndex' () {
+      // console.log(this.db.config.videoSelectedTrackIndex)
+      // console.log(this.db.config.videoObject)
       this.init()
     },
   },
@@ -42,6 +44,7 @@ let app = {
 
       let index = this.db.config.videoSelectedTrackIndex
       let track = this.db.config.videoObject.getTracks()[index];
+      console.log(track)
       let video = this.$refs.Video
       video.srcObject = this.db.config.videoObject
       
