@@ -14,6 +14,7 @@ let config = {
   videoObject: null,
   videoDevices: null,
   videoSelectedTrack: null,
+  videoSelectedTrackDevicesID: null,
   videoSelectedTrackIndex: -1,
   videoTrackLabels: [],
 

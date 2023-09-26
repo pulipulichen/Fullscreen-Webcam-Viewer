@@ -14,7 +14,7 @@ let app = {
     'db.localConfig.locale'() {
       this.$i18n.locale = this.db.localConfig.locale;
     },
-    'db.config.videoSelectedTrackIndex' () {
+    'db.config.videoSelectedTrackDevicesID' () {
       // console.log(this.db.config.videoSelectedTrackIndex)
       // console.log(this.db.config.videoObject)
       this.init()
@@ -42,14 +42,17 @@ let app = {
         return false
       }
 
-      let index = this.db.config.videoSelectedTrackIndex
-      let track = this.db.config.videoObject.getTracks()[index];
-      console.log(track)
+      // let index = this.db.config.videoSelectedTrackIndex
+      // let track = this.db.config.videoObject.getTracks()[index];
+      let videoObject = await navigator.mediaDevices.getUserMedia({ video: { deviceId: this.db.config.videoSelectedTrackDevicesID } })
+      let track = videoObject.getTracks()[0]
+      console.log(track, this.db.config.videoSelectedTrackDevicesID)
       let video = this.$refs.Video
-      video.srcObject = this.db.config.videoObject
+      video.srcObject = videoObject
+      // video = track
       
       if (track.getSettings) {
-        let {width, height} = track.getSettings();
+        let {width, height} = track.getSettings()
         console.log(`${width}x${height}`);
         // video.style.width = width+'px';
         // video.style.height = height+'px'

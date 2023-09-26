@@ -33,10 +33,11 @@
     </label>
     <div class="ui fluid buttons">
       <div class="ui button"
-        v-for="label in db.config.videoTrackLabels"
-        :class="{disabled: (label === db.config.videoSelectedTrack)}"
-        @click="db.config.videoSelectedTrack = label">
-        {{ label }}
+        v-for="track in db.config.videoDevices"
+        :class="{disabled: (track.deviceId === db.config.videoSelectedTrackDevicesID)}"
+        v-show="track.deviceId"
+        @click="db.config.videoSelectedTrackDevicesID = track.deviceId">
+        {{ track.label }}
       </div>
     </div>
   </div>

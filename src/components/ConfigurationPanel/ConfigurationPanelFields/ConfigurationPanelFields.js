@@ -34,6 +34,7 @@ let app = {
         //let tracks = this.db.config.videoObject.getTracks();
         // let tracks = this.db.config.videoObject
         // console.log(tracks); 
+        console.log(this.db.config.videoDevices)
         // let videoSelectedTrack = 0
         this.db.config.videoTrackLabels = []
         for (let i = 0; i < this.db.config.videoDevices.length; i++) {
@@ -45,10 +46,12 @@ let app = {
   
           if (track.label.indexOf('USB') > -1) {
             this.db.config.videoSelectedTrack = track.label
+            this.db.config.videoSelectedTrackDevicesID = track.deviceId
             this.db.config.videoSelectedTrackIndex = this.db.config.videoTrackLabels.length
           }
           else if (track.kind === 'videoinput' && this.db.config.videoSelectedTrackIndex === -1) {
             this.db.config.videoSelectedTrack = track.label
+            this.db.config.videoSelectedTrackDevicesID = track.deviceId
             this.db.config.videoSelectedTrackIndex = this.db.config.videoTrackLabels.length
           }
           if (track.label !== '') {
@@ -66,9 +69,9 @@ let app = {
             this.db.config.videoTrackLabels.length > 0) {
           this.db.config.videoSelectedTrack = this.db.config.videoTrackLabels[0]
         } 
-        console.log(this.db.config.videoSelectedTrack)
-
         // console.log(this.db.config.videoSelectedTrack)
+
+        console.log(this.db.config.videoSelectedTrackDevicesID)
 
       } catch(e) {
         console.log(e);
