@@ -53,6 +53,10 @@ let app = {
       
       if (track.getSettings) {
         let {width, height} = track.getSettings()
+        if (width === 640 && height === 480) {
+          width = 1920
+          height = 1080
+        }
         console.log(`${width}x${height}`);
         // video.style.width = width+'px';
         // video.style.height = height+'px'
