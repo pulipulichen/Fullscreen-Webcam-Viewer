@@ -25,7 +25,7 @@ let config = {
   voteSheetURL: 'https://docs.google.com/spreadsheets/d/1_-YWGghERf7pM3pQw9po6E7TEfjatnYLaQKUSyp2xKE/edit#gid=0',
   voterAppURL: `https://pulipulichen.github.io/PWA-Online-Voting/`,
 
-  levelupThreshold: 50
+  levelupThreshold: 100,
 }
 
 // ----------------------------------------------------------------

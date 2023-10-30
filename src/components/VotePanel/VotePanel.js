@@ -3,6 +3,18 @@ import VueNumber from 'vue-number-animation'
 
 Vue.use(VueNumber)
 
+import animationBunny from './animation-list/bunny-rabbit-usagi-fN4xUMSYESWeF8sZoC.gif'
+import animationBunnySmall from './animation-list/bunny-rabbit.gif'
+// import animationBunnyHeartLove from './animation-list/heart-love.gif'
+import animationBunnyHolidayFestival from './animation-list/holiday-festival2.gif'
+// import animationBunnyCute from './molangofficialpage-love-cute-5bdhq6YF0szPaCEk9Y.gif'
+import animationBunnyRabbitChasingCarrot from './animation-list/rabbit-chasing-carrot.gif'
+// import animationBunnyWhiteRabbit from './animation-list/white-rabbit.gif'
+import animationJumpBunnyGIFByOliverSin from './animation-list/jump-bunny-gif-by-oliver-sin.gif'
+import animationJumpConfusedBunny from './animation-list/confused-bunny.gif'
+import animationHappyBunnyRabbitGifByLisaVertudaches from './animation-list/happy-bunny-rabbit-gif-by-lisa-vertudaches.gif'
+import animationEasterBunnyIllustrationGifByEmiliaDesert from './animation-list/easter-bunny-illustration-gif-by-emilia-desert.gif'
+
 let app = {
   props: ['db'],
   components: {
@@ -15,7 +27,20 @@ let app = {
       voteClass: null,
       refreshSeconds: 5,
       showLevelup: false,
-      lastLevelupRemainder: 0
+      lastLevelupRemainder: 0,
+      levelupCounter: 0,
+      levelupThresholdCurrent: 0,
+      levelupAnimationList: [
+        animationBunny,
+        animationBunnySmall,
+        animationBunnyRabbitChasingCarrot,
+        animationBunnyHolidayFestival,
+        // animationBunnyWhiteRabbit,
+        animationJumpBunnyGIFByOliverSin,
+        animationJumpConfusedBunny,
+        animationHappyBunnyRabbitGifByLisaVertudaches,
+        animationEasterBunnyIllustrationGifByEmiliaDesert
+      ]
     }
   },
   watch: {
@@ -26,14 +51,15 @@ let app = {
       // console.log(newVote, oldVote)
       let interval = newVote - oldVote
 
-      let levelupRemainder = newVote % this.db.config.levelupThreshold
+      let levelupRemainder = newVote % this.levelupThresholdCurrent
+      // console.log(this.db.localConfig.levelupThreshold)
       if (levelupRemainder < this.lastLevelupRemainder) {
         this.showLevelup = true
       }
       this.lastLevelupRemainder = levelupRemainder
 
       let className = 'increasing-small'
-      if (interval >= 5) {
+      if (interval > 5) {
         className = 'increasing-large'
       }
       
@@ -48,6 +74,9 @@ let app = {
     },
     showLevelup () {
       if (this.showLevelup === true) {
+        // console.log('showLevelup')
+        this.levelupCounter++
+        this.changeLevelupThresholdCurrent()
         setTimeout(() => {
           this.showLevelup = false
         }, 5000 )
@@ -69,6 +98,10 @@ let app = {
         return 1
       }
       return 0.1
+    },
+    computedAnimationSrc () {
+      let i = this.levelupCounter % this.levelupAnimationList.length
+      return this.levelupAnimationList[i]
     }
   },
   mounted() {
@@ -100,6 +133,23 @@ let app = {
         this.vote = await this.loadVote()
       }, this.refreshSeconds * 1000 )
       this.vote = await this.loadVote()
+      this.shuffleAnimationList()
+      this.changeLevelupThresholdCurrent()
+
+      // setInterval(() => {
+      //   this.levelupCounter++
+      // }, 3000)
+    },
+    testLevelupAnimation () {
+      this.levelupCounter++
+    },
+    shuffleAnimationList () {
+      let array = this.levelupAnimationList
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      this.levelupAnimationList = array
     },
     loadVote: async function () {
       
@@ -108,6 +158,15 @@ let app = {
     },
     popup (url) {
       this.db.utils.PopupUtils.openURLFullscreen(url)
+    },
+    changeLevelupThresholdCurrent () {
+      let interval = Math.floor(Math.random() * (parseInt(this.db.localConfig.levelupThresholdRangeMax) - parseInt(this.db.localConfig.levelupThresholdRangeMin) + 1)) + parseInt(this.db.localConfig.levelupThresholdRangeMin)
+
+      this.levelupThresholdCurrent = this.db.localConfig.levelupThreshold + interval
+      if (this.levelupThresholdCurrent <= 0) {
+        this.levelupThresholdCurrent = Math.round(this.db.localConfig.levelupThreshold / 10)
+      }
+      console.log(this.levelupThresholdCurrent)
     }
   }
 }

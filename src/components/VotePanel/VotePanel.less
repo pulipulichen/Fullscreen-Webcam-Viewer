@@ -18,12 +18,14 @@
       transition: color 0.5s linear;
 
       &.increasing-small {
-        color: yellow !important;
+        // color: yellow !important;
+        color: #92C895 !important;
       }
 
       &.increasing-large {
         // color: green !important;
-        color: #92C895 !important;
+        // color: #92C895 !important;
+        color: yellow !important;
       }
     }
       
@@ -36,11 +38,16 @@
   .levelup {
     transition: opacity 0.5s linear;
     opacity: 0;
+    display: block !important;
 
     // img {
     //   border-radius: 50%;
     // }
     
+    img {
+      margin: 0 auto;
+      width: 100%;
+    }
 
     &.show {
       opacity: 1;

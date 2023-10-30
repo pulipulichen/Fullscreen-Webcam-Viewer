@@ -1,5 +1,5 @@
 <div class="VotePanel"
-  v-show="db.localConfig.showQRCode">
+  v-if="db.localConfig.showQRCode">
   <a :href="voterAppURL"
     target="_blank"
     @click.prevent.stop="popup(voterAppURL)">
@@ -23,6 +23,6 @@
 
   <div class="ui image levelup"
     :class="{show: showLevelup}">
-    <img src="./bunny-rabbit-usagi-fN4xUMSYESWeF8sZoC.gif" />
+    <img :src="computedAnimationSrc" />
   </div>
 </div>

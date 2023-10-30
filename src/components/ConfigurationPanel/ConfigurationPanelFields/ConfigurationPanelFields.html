@@ -86,8 +86,8 @@
   </div>
 
 
-  <div class="fields">
-    <div class="eight wide field">
+  <div class="ui equal width grid">
+    <div class="column field">
       <label for="ConfigurationPanelFieldsLevelupThreshold">
         {{ $t('Level Up Threshold') }}
       </label>
@@ -96,11 +96,37 @@
           min="5"
           step="5" 
           id="ConfigurationPanelFieldsLevelupThreshold"
-          v-model="db.config.levelupThreshold"
+          v-model="db.localConfig.levelupThreshold"
           onfocus="this.select()" />
       </div>
     </div>
-    <div class="eight wide field">
+    <div class="column field">
+      <label for="ConfigurationPanelFieldsLevelupThresholdRangeMin">
+        {{ $t('Level Up Threshold Range Min') }}
+      </label>
+      <div class="ui input">
+        <input type="number"
+          :max="db.localConfig.levelupThresholdRangeMax - 5"
+          step="5" 
+          id="ConfigurationPanelFieldsLevelupThresholdRangeMin"
+          v-model="db.localConfig.levelupThresholdRangeMin"
+          onfocus="this.select()" />
+      </div>
+    </div>
+    <div class="column field">
+      <label for="ConfigurationPanelFieldsLevelupThresholdRangeMax">
+        {{ $t('Level Up Threshold Range Max') }}
+      </label>
+      <div class="ui input">
+        <input type="number"
+          :min="db.localConfig.levelupThresholdRangeMin + 5"
+          step="5" 
+          id="ConfigurationPanelFieldsLevelupThresholdRangeMax"
+          v-model="db.localConfig.levelupThresholdRangeMax"
+          onfocus="this.select()" />
+      </div>
+    </div>
+    <div class="column field">
       <label for="ConfigurationPanelFieldsVoteColumnWidth">
         {{ $t('Vote Column Width') }}
       </label>
