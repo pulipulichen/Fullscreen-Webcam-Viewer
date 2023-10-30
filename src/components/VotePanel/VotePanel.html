@@ -1,4 +1,5 @@
-<div class="VotePanel">
+<div class="VotePanel"
+  v-show="db.localConfig.showQRCode">
   <a :href="voterAppURL"
     target="_blank"
     @click.prevent.stop="popup(voterAppURL)">

@@ -75,7 +75,7 @@ let Index = {
   methods: {
 
     pushRouter: async function () {
-      this.db.config.showConfiguration = false
+      this.db.localConfig.showConfiguration = false
       this.db.config.focusedTask = false
       await this.$router.replace(`/${this.db.config.view}/${this.db.config.search}`, () => {}, () => {})
     },

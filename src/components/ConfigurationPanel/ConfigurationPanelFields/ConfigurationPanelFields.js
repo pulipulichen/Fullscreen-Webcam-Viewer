@@ -124,7 +124,7 @@ let app = {
     toggleDemo () {
       this.db.config.showDemo = !this.db.config.showDemo
 
-      this.db.config.showConfiguration = false
+      this.db.localConfig.showConfiguration = false
     }
   }
 }

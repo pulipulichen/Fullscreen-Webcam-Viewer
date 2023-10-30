@@ -1,13 +1,33 @@
 <div class="ConfigurationPanelFields">
 
-  <div class="field">
-    <div class="ui fluid buttons">
-      <div class="ui button"
-        @click="reload">
-        {{ $t('Reload') }}
+  <div class="ui equal width grid">
+    <div class="column">
+      <div class="field">
+        <div class="ui fluid buttons">
+          <div class="ui button"
+            @click="reload">
+            {{ $t('Reload') }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="field">
+        <div class="ui fluid buttons">
+          <div class="ui button"
+            @click="db.localConfig.showQRCode = !db.localConfig.showQRCode">
+            <template v-if="db.localConfig.showQRCode">
+              {{ $t('Hide QR Code') }}
+            </template>
+            <template v-if="!db.localConfig.showQRCode">
+              {{ $t('Show QR Code') }}
+            </template>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+    
 
   <div class="field">
     <label for="ConfigurationPanelFieldsCommand">

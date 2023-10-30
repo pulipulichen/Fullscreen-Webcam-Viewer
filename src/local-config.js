@@ -1,6 +1,8 @@
 let localConfig = {
   lastChanged: null,
   voteColumnWidth: 200,
+  showConfiguration: true,
+  showQRCode: true,
 }
 
 // ----------------------------------------------------------------
