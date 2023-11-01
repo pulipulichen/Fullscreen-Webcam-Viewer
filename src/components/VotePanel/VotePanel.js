@@ -82,6 +82,15 @@ let app = {
         }, 5000 )
       }
     },
+    'db.localConfig.levelupThreshold' () {
+      this.changeLevelupThresholdCurrent()
+    },
+    'db.localConfig.levelupThresholdRangeMin' () {
+      this.changeLevelupThresholdCurrent()
+    },
+    'db.localConfig.levelupThresholdRangeMax' () {
+      this.changeLevelupThresholdCurrent()
+    }
   },
   computed: {
     voteSheetURL () {
@@ -162,9 +171,9 @@ let app = {
     changeLevelupThresholdCurrent () {
       let interval = Math.floor(Math.random() * (parseInt(this.db.localConfig.levelupThresholdRangeMax) - parseInt(this.db.localConfig.levelupThresholdRangeMin) + 1)) + parseInt(this.db.localConfig.levelupThresholdRangeMin)
 
-      this.levelupThresholdCurrent = this.db.localConfig.levelupThreshold + interval
+      this.levelupThresholdCurrent = parseInt(this.db.localConfig.levelupThreshold) + interval
       if (this.levelupThresholdCurrent <= 0) {
-        this.levelupThresholdCurrent = Math.round(this.db.localConfig.levelupThreshold / 10)
+        this.levelupThresholdCurrent = Math.round(parseInt(this.db.localConfig.levelupThreshold) / 10)
       }
       console.log(this.levelupThresholdCurrent)
     }
