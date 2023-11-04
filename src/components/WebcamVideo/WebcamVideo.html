@@ -1,7 +1,8 @@
 <div class="WebcamVideo">
   <video autoplay
-    class="video"
+    class="computedVideoClass"
     ref="Video"
+    @mousemove="hideCursor"
     :style="computedStyle"
     @click.self="toggleFullscreen"
     v-show="!db.config.showDemo"></video>	

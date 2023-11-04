@@ -8,6 +8,8 @@ let app = {
     return {
       width: 0,
       height: 0,
+      cursorHidden: false,
+      hideCursorTimer: null
     }
   },
   watch: {
@@ -26,6 +28,15 @@ let app = {
         width: this.width + 'px',
         height: this.height + 'px',
       }
+    },
+    computedVideoClass () {
+      let classList = ['video']
+
+      if (this.cursorHidden) {
+        classList.push('hide-cursor')
+      }
+
+      return classList
     }
   },
   mounted() {
@@ -96,6 +107,14 @@ let app = {
       else if (video.msRequestFullscreen) { 
         video.msRequestFullscreen();
       }
+    },
+    hideCursor () {
+      this.hideCursor = false
+
+      clearTimeout(this.hideCursorTimer)
+      this.hideCursorTimer = setTimeout(() => {
+        this.hideCursor = true
+      }, 3000)
     }
   }
 }
