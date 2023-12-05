@@ -1,6 +1,22 @@
 $toAdapterName = 'Realtek USB GbE Family*'
 #$toAdapterName = 'ASIX AX88179 *'
 
+# =================================================================
+
+# Get the Windows Audio service
+$audioService = Get-Service -Name "Audiosrv"
+
+# Check if the service is running
+if ($audioService.Status -eq 'Running') {
+    # Stop the service to mute the audio
+    Stop-Service -Name "Audiosrv" -Force
+    Write-Host "Audio muted."
+} else {
+    Write-Host "Audio is already muted."
+}
+
+# =================================================================
+
 function Set-MrInternetConnectionSharing {
 
 <#
@@ -200,3 +216,4 @@ $windowsVersion = (Get-WmiObject -class Win32_OperatingSystem).Caption
 #else {
     echo "Disable Firewall"
 #}
+
