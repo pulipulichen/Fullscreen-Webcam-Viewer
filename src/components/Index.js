@@ -107,8 +107,8 @@ let Index = {
           document.msExitFullscreen();
         }
       }
-    }
-    
+    },
+
   }
 }
 

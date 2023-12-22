@@ -3,6 +3,7 @@ let localConfig = {
   voteColumnWidth: 200,
   showConfiguration: true,
   showQRCode: true,
+  showVoter: true,
 
   levelupThreshold: 100,
   levelupThresholdRangeMin: -50,

@@ -17,9 +17,18 @@ let app = {
     
   },
   mounted() {
-    
+    this.autoDisable()
   },
   methods: {
+    autoDisable () {
+      if (this.db.localConfig.showConfiguration === false) {
+        return false
+      }
+
+      setTimeout(() => {
+        this.db.localConfig.showConfiguration = false
+      }, 2 * 60 * 1000)
+    },
   }
 }
 

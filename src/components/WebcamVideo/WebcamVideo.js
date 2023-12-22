@@ -8,7 +8,7 @@ let app = {
     return {
       width: 0,
       height: 0,
-      cursorHidden: false,
+      cursorHidden: true,
       hideCursorTimer: null
     }
   },
@@ -109,11 +109,11 @@ let app = {
       }
     },
     hideCursor () {
-      this.hideCursor = false
+      this.cursorHidden = false
 
       clearTimeout(this.hideCursorTimer)
       this.hideCursorTimer = setTimeout(() => {
-        this.hideCursor = true
+        this.cursorHidden = true
       }, 3000)
     }
   }

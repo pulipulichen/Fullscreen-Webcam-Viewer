@@ -15,12 +15,13 @@
       <div class="field">
         <div class="ui fluid buttons">
           <div class="ui button"
-            @click="db.localConfig.showQRCode = !db.localConfig.showQRCode">
-            <template v-if="db.localConfig.showQRCode">
-              {{ $t('Hide QR Code') }}
+            :class="{positive: (db.localConfig.showVoter)}"
+            @click="toggleVoter">
+            <template v-if="db.localConfig.showVoter">
+              {{ $t('Hide Voter') }}
             </template>
-            <template v-if="!db.localConfig.showQRCode">
-              {{ $t('Show QR Code') }}
+            <template v-if="!db.localConfig.showVoter">
+              {{ $t('Show Voter') }}
             </template>
           </div>
         </div>
@@ -142,14 +143,6 @@
     </div>
   </div>
 
-  <div class="field"
-    @click="toggleDemo">
-    <div class="ui fluid button"
-      :class="{positive: (db.config.showDemo)}">
-      {{ $t('Show Demo') }}
-    </div>
-  </div>
-
   <div class="field">
     <label>
       {{ $t('How to cast screen? (Computer / Android / iOS))') }}
@@ -163,6 +156,15 @@
   <div class="ui fluid buttons">
     <a href="https://pulipulichen.github.io/PWA-Now-Loading/#/" 
       target="now_loading"
-      class="ui button">NOW LOADING</a>
+      class="ui button">Open NOW LOADING</a>
   </div>
+
+  <div class="field"
+    @click="toggleDemo">
+    <div class="ui fluid button"
+      :class="{positive: (db.config.showDemo)}">
+      {{ $t('Show Demo') }}
+    </div>
+  </div>
+
 </div>

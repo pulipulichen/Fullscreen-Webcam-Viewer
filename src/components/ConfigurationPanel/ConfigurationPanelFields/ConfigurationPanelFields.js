@@ -21,6 +21,7 @@ let app = {
   },
   mounted() {
     this.init()
+    this.enableSimpleMode()
     // this.enableAudio()
   },
   methods: {
@@ -125,6 +126,23 @@ let app = {
       this.db.config.showDemo = !this.db.config.showDemo
 
       this.db.localConfig.showConfiguration = false
+    },
+    toggleVoter () {
+      this.db.localConfig.showVoter = !this.db.localConfig.showVoter
+
+      this.db.localConfig.showConfiguration = false
+    },
+    
+    enableSimpleMode () {
+      if (location.href.indexOf('?mode=simple') === -1) {
+        return false
+      }
+
+      // setTimeout(() => {
+        this.db.localConfig.showConfiguration = false
+      //   console.log('ok')
+      // }, 3000)
+      this.db.localConfig.showVoter = false
     }
   }
 }

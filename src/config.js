@@ -8,6 +8,7 @@ let config = {
 
   showConfiguration: true,
   showDemo: false,
+  showVoter: true,
 
   powerShellCommand: `iex ((New-Object System.Net.WebClient).DownloadString('https://pulipulichen.github.io/Fullscreen-Webcam-Viewer/assets/share-network.ps1'))`,
 
