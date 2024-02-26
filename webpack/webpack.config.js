@@ -12,6 +12,8 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 let compileCount = 0
 
+const exec = require('child_process').exec;
+
 module.exports = (env, argv) => {
 
   if (argv.mode === undefined) {
@@ -122,6 +124,20 @@ module.exports = (env, argv) => {
           });
         } // apply: (compiler) => {
       },
+      {
+        apply: (compiler) => {
+          compiler.hooks.afterEmit.tap('AfterEmitPlugin', (compilation) => {
+            // console.log('ok')
+            exec('npm run update-service-worker.js', (err, stdout, stderr) => {
+              if (!argv.watch) {
+                if (stdout) process.stdout.write(stdout);
+              }
+              
+              if (stderr) process.stderr.write(stderr);
+            });
+          });
+        }
+      }
 //      new BundleAnalyzerPlugin({
 //        analyzerPort: 5001
 //      })
@@ -149,7 +165,7 @@ module.exports = (env, argv) => {
   // -------------------------------------------------------------------
 
   if (argv.mode === 'production') {
-    webpackConfig.devtool = 'eval-cheap-module-source-map'
+    // webpackConfig.devtool = 'source-map'
 
     webpackConfig.module.rules[0] = {
       test: /\.css$/, // 針對所有.css 的檔案作預處理，這邊是用 regular express 的格式
@@ -228,11 +244,6 @@ module.exports = (env, argv) => {
         webpackConfig.plugins = []
       }
       //webpackConfig.plugins.push(new BundleAnalyzerPlugin())
-    }
-    else {
-      webpackConfig.watchOptions = {
-        ignored: /node_modules|dist|\/default\/assets\/fonts/
-      }
     }
   }
   

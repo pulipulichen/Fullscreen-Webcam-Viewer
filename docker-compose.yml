@@ -15,6 +15,7 @@ services:
       - ./dist:/app/dist
       - ./src:/app/src
       - ./assets:/app/assets
+      - ./service-worker.js:/app/service-worker.js
     #Mount port 1000 on the container side to port 8080 on the host side.
     #ports:
     #  - "8080:8080"
