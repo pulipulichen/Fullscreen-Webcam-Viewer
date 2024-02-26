@@ -1,10 +1,10 @@
 {
-  "name": "Now Loading",
-  "short_name": "Now Loading",
+  "name": "Fullscreen Webcam Viewer",
+  "short_name": "FullView",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#E1F7F7",
-  "description": "A PWA to display \"Now Loading\" screen.",
+  "description": "Fullscreen Webcam Viewer",
   "icons": [{
     "src": "assets/favicon/favicon.png",
     "sizes": "512x512",

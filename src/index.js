@@ -57,7 +57,7 @@ baseURL = baseURL.split('/').slice(0, 3).join('/')
 
 let baseScript = document.currentScript
 if (baseScript) {
-  console.log('test')
+  // console.log('test')
   let src = baseScript.src
   //console.log(src)
   if (src.startsWith('/')) {
