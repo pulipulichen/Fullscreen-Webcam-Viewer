@@ -1,8 +1,8 @@
 # 查詢 $toAdpaterName
 # Get-NetAdapter -physical | where status -eq 'up'
 
-#$toAdapterName = 'Realtek USB GbE Family*'
-$toAdapterName = 'ASIX AX88179 *'
+$toAdapterName = 'Realtek USB GbE Family*'
+# $toAdapterName = 'ASIX AX88179 *'
 
 # =================================================================
 
